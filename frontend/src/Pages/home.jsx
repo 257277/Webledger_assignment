@@ -87,9 +87,9 @@ export default function Home() {
             <Center height='50px' size='lg'></Center>
             <Heading color={"blue.600"}>Recipe</Heading>
             <Center height='50px'></Center>
-            <Flex alignItems='center' justifyContent={"space-around"}>
-                <Input placeholder='Search Recipe' width={"50%"} fontSize={"20px"} onChange={(e) => setrecipe(e.target.value)} />
-                <Button colorScheme='blue' onClick={() => { setclick(true); setFirstClick(true); }}>Search</Button>
+            <Flex alignItems='center' justifyContent={"space-around"}  direction={{ base: "column", md: "row" }}  wrap={{ base: "nowrap", md: "wrap" }}>
+                <Input placeholder='Search Recipe' width={{ lg: "50%", md: "100%", sm: "100%" }} fontSize={"20px"} onChange={(e) => setrecipe(e.target.value)} marginBottom={{md:"20px",sm:"20%"}} />
+                <Button colorScheme='blue' onClick={() => { setclick(true); setFirstClick(true); }} marginTop={{lg:"-3%"}}>Search</Button>
             </Flex>
             <Center height='50px'>
                 <Divider />
@@ -103,7 +103,7 @@ export default function Home() {
                size='xl'
              /></div>
       ) :(
-            <div>
+            <div className={style.body}>
               
                 {firstclick && (
                     <div className={style.filter}>
@@ -150,7 +150,7 @@ export default function Home() {
                 )}
 
                 <div>
-                    <Grid templateColumns='repeat(2, 1fr)' gap={10}>
+                    <Grid templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(2, 1fr)' }} gap={10}>
                         {data?.map((item) => (
                             <GridItem key={item.id}>
                                 <Card maxW='sm'>

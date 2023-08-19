@@ -46,7 +46,7 @@ export default function Favourite()
              /></div>
       ) :(
         <div className={style.recipes}>
-  <Grid templateColumns='repeat(2, 1fr)' gap={10}>
+  <Grid templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(2, 1fr)' }} gap={10}>
     {data?.map((item) => (
       <GridItem key={item.id}>
         <Card maxW='sm'>

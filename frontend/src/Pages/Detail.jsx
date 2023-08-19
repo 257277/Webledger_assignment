@@ -58,7 +58,7 @@ export default function Detail() {
                 <Heading color={"blue.600"}>{data.title}</Heading>
                 <Center height="30px">
             </Center>
-                <Flex width={"90%"} margin={"auto"}>
+                <Flex width={"90%"} margin={"auto"} direction={{lg:"row",md:"column",sm:"column", base:"column"}}>
                 <Image
                     src={data.image}
                     alt='recipe image'
@@ -122,7 +122,7 @@ export default function Detail() {
             <div>
             <Center height="30px">
             </Center>
-            <Grid templateColumns='repeat(4, 1fr)' gap={10}>
+            <Grid templateColumns={{ base: 'repeat(1, 1fr)', sm:'repeat(2, 1fr)', md: 'repeat(3, 1fr)', lg: 'repeat(4, 1fr)' }} gap={10}>
         {ingredient?.map((item) => {
             return (
                 <Card maxW='sm'>
