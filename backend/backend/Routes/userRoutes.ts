@@ -3,6 +3,8 @@ import Env from '@ioc:Adonis/Core/Env'
 import Database from '@ioc:Adonis/Lucid/Database';
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+
+//login route
 Route.post("/login",async({request,response})=>
 {
 try{
@@ -30,7 +32,7 @@ catch(err)
     response.send(err);
 }
 })
-
+// signup route
 Route.post('/register', async ({ request, response }) => {
     try {
       let obj = request.body();

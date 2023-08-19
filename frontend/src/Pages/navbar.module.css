@@ -1,0 +1,21 @@
+.navbar {
+    background-color: rgb(56, 112, 215);
+    display: flex;
+    justify-content: space-around;
+    font-size: 25px;
+    font-weight: bold;
+    color: rgb(245, 245, 245);
+    align-items: center;
+    padding-left: 20%;
+}
+
+
+
+@media screen and (max-width: 800px) {
+    .navbar {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        text-align: center;
+        padding-left: 0%;
+    }
+}

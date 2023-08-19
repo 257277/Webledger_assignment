@@ -22,19 +22,19 @@
 import Route from '@ioc:Adonis/Core/Route'
 import "../Routes/userRoutes"
 import axios from 'axios'
-
+import Database from '@ioc:Adonis/Lucid/Database'
+// testing route
 Route.get('/', async () => {
   return { hello: 'world' }
 })
-
+// Recipe Search Route
 Route.get('/food/:query', async ({ request, response }) => {
   let { query } = request.params();
-  let { price, diet } = request.qs(); // Extract query parameters
-
+  let { sort,sortDirection, diet } = request.qs(); 
   let url = `https://api.spoonacular.com/recipes/complexSearch/?query=${query}`;
 
-  if (price !== undefined) {
-    url += `&sort=price&sortDirection=${price}`;
+  if (sort !== undefined) {
+    url += `&sort=${sort}&sortDirection=${sortDirection}`;
   }
 
   if (diet !== undefined) {
@@ -42,8 +42,7 @@ Route.get('/food/:query', async ({ request, response }) => {
   }
 
   try {
-    console.log(request.params());
-    console.log(url);
+ 
     let data = await axios.get(url, {
       headers: {
         'x-api-key': '433a7d0c5d6a4ac89adea1b1b067d92c'
@@ -56,3 +55,58 @@ Route.get('/food/:query', async ({ request, response }) => {
     response.status(500).send('An error occurred while fetching data.');
   }
 })
+
+// Recipe Detail Route
+Route.get("/detail/:id",async({request,response})=>
+{
+  const { id } = request.params();
+  let url=`https://api.spoonacular.com/recipes/${id}/information?includeNutrition=true`
+  try{
+    let data=await axios.get(url,
+      {
+        headers: {
+          'x-api-key': '433a7d0c5d6a4ac89adea1b1b067d92c'
+        }
+      });
+      response.send(data.data);
+  }
+  catch(err)
+  {
+    response.send("Something went wrong");
+  }
+})
+//Recipe add to favourite route
+Route.post("/addfavourite",async({request,response})=>
+{
+  let data=request.body();
+  try{
+    let dt=await Database.from("favourite").where("title",data.title).first();
+    if(dt==null)
+    {
+    await Database.table("favourite").insert(data);
+    response.send({"msg":"Successfully added"});
+    }
+    else{
+      response.send({"msg":"Already added"});
+    }
+  }
+  catch(err)
+  {
+    response.send({"err":err,"msg":"Something wents wrong"});
+  }
+
+})
+// Retrieval of Favourite Recipe Route
+Route.get("/favourite/:email", async ({ request, response }) => {
+  try {
+    const { email } = request.params();
+ 
+    const favoriteRecipes = await Database.from("favourite").select("*").where("email", email);
+    response.send({ favoriteRecipes });
+  } catch (err) {
+ 
+    console.error(err);
+    response.send("Something went wrong");
+  }
+});
+

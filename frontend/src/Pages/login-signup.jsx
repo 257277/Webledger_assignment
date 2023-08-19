@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
 import { Input, InputGroup, InputRightElement, Button, Divider, Center, Stack } from '@chakra-ui/react';
 import Styles from "../Pages/login-signup.module.css";
-
+import Navbar from './navbar';
 import { useNavigate } from "react-router-dom";
 
 export default function LoginSignup() {
@@ -30,12 +30,12 @@ export default function LoginSignup() {
 
       if (res.ok) {
         const data = await res.json();
-        console.log(data);
+
         const {token} = data;
         sessionStorage.setItem("token", JSON.stringify(token));
         sessionStorage.setItem("email", JSON.stringify(data.user));
         alert(data.msg);
-        navigate("/");
+        navigate("/home");
       } else {
         const errorData = await res.json();
         alert(errorData.msg); 
@@ -76,7 +76,9 @@ export default function LoginSignup() {
   }
 
   return (
+
     <div>
+      <Navbar/>
       <Center height='100px'>
         <Divider />
       </Center>

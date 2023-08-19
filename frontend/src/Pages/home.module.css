@@ -1,0 +1,13 @@
+.container {
+    width: 50%;
+    margin: auto;
+}
+
+.heading {
+    font-size: 30px;
+}
+
+.filter {
+    float: left;
+    margin-left: -30%;
+}
